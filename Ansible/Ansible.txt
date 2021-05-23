@@ -1,0 +1,50 @@
+Ansible
+=======
+Ansible is a IT automation tool.It can configure large scale of systems,deploy softwares and zero downtime in rolling out updates.
+
+Unlike other automation tools like Pupet and Chef, Ansible doesn't work with installing the agent on the remote system which need to be managed.
+
+Ansible works on agent-less concept.It communicates with other systems using OpenSSH.
+
+Installation
+------------
+Ansible is agentless IT automation tool which is installed on a control node.Ansible manages other machines i.e managed nodes via ssh communication.Control node and managed nodes should have ssh service on.Ansible is written in Python progamming language.
+
+Installing Ansible on Ubuntu 20.04
+  
+- Before we start installing the Ansible package in Control Node,its a good practice to create a new sudo user for Ansible specific tasks.Same user we can have it on the Managed nodes.
+
+- Creating new user for Ansible tasks in Control and Managed node
+cmd : useradd -d /home/ansiadmin -m ansiadmin -s /bin/bash
+
+- Set password for 'ansiadmin'
+cmd : passwd ansiadmin
+      passwd -x -1 ansiadmin
+
+- Switch to 'ansiadmin' user
+cmd : sudo -u ansiadmin chsh -s /bin/bash [ in case auto-compilition from Tab not working ]
+      su - ansiadmin
+
+- Add 'ansiadmin' to /etc/sudoers
+cmd : vim /etc/sudoers
+      add below line after root ALL=(ALL:ALL) ALL
+      ansiadmin ALL=(ALL:ALL) NOPASSWD:ALL
+
+- Setup Password less ssh communication between Control node and Managed nodes
+  - First create the public key in Conrol node.
+  - Public key should be created by new user
+  cmd : ssh-keygen -t rsa
+        press enter two times
+        public key is saved in the Home directory of the new user /home/ansiadmin/.ssh/id_rsa.pub
+
+  - Copy the Public key from Control node to Managed nodes
+  cmd : ssh-copy-id ansiadmin@hostname_managed_node or ip-address of managed node
+        The above command will create .ssh/authorized_keys file in managed node home directory of the user
+        which is passed in the above command.The authorized_keys file contains the public key of control node.
+
+- Installing Python3 and Python3-pip3
+cmd : sudo apt-get install python3
+      sudo apt-get install python3-pip
+
+- Installing Ansible
+cmd : sudo pyhon3 -m pip install ansible
