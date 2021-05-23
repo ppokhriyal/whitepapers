@@ -1,0 +1,69 @@
+Amazon S3
+=========
+Amazon Simple Storage Service (Amazon S3) is a storage for Internet.Amazon S3 gives a simple web-service interface for storing and retrieving any amount of data,at any time,from anywhere on the web.
+
+Key Concepts
+------------
+a. Buckets
+
+A bucket is a container for storing the objects.For example if we have a object name example.png stored in a 'examplebucket' in 'us-east-1' region,then its accessable URL will be 'https://examplebucket.s3.us-east-1.amazonaws.com/example.png':
+- examplebucket, is the bucketname
+- s3, amazon s3 service name
+- us-east-1, region where it is created
+- amazonaws.com, amazon fqdn
+- example.png, object name
+
+- S3 is a object based storage i.e the files are stored as a whole without dividing them into chunks.
+- Maximum capacity of a bucket is 5TB
+- Folders can be created inside buckets
+- Per AWS account we can have 100 buckets
+
+b. Objects
+
+Objects consists of object data and metadata.The object data are opaque to Amazon S3 and metadata is the set of name-value pair that describes the objects.The default metadata are, date last modified and content-type.
+
+c. Keys
+
+A key is the unique idenifier for an object within the bucket.Every object in a bucket have exactly one key.
+
+d. Regions
+
+We can choose the AWS Region where Amazon S3 will store the bucket which we intend to create.
+
+Storage Class for Frequently Accessed Objects
+---------------------------------------------
+For performance-sensitive (where object access time is in milliseconds) and frequently accessed objects,Amazon S3 provides the two type of storage classes :
+
+- S3 Standard : This is the default storage class.If we don't supply the storage class while uploading the objects into the buckets,Amazon S3 assign S3 Standard class to those objects.
+- Reduced Redundancy Storage : RRS is designed for those objects,which are noncritical and reproducible data that can be stored with less redundancy.
+
+Storage class for automatically optimizing data with changing or unknown access patterns
+----------------------------------------------------------------------------------------
+S3 Intelligent-Tiering storage class is designed for optimizing the storage cost by automaically moving the data to the most cost-effective access tier,without any operational overhead.
+
+S3 Intelligent-Tiering monitors the access time patterns and changing of data,and acordingly move the data to cost-effective tier.
+
+- There are no retrieval fees
+- Objects that are uploaded to the S3 Intelligent-Tiering are automatically stored in the Frequent Access tier.
+- S3 I-T monitors the access patterns of objects and see those objects are not accessed in last 30 days are moved to infrequent-access tier
+- Objects that are not accessed in 90 days are moved to Archived Access Tier
+- Objects that are not accessed in 180 days are moved to Deep Archived Access Tier
+- S I-T is suitable for objects larger than 128kb
+- If the object is delete before the end of 30-days minimum storage duration period,charges are applied for 30-days.
+
+Storage classes for infrequently accessed objects
+-------------------------------------------------
+The S3 Standard-IA and S3 One Zone-IA storage classes are designed for long-lived and infrequently accessed datas.
+
+- Objects in these storage classes are available in milliseconds
+- There is retrieval fee on the objects
+- S3 Standard-IA store object data in multiple geographical locations
+- S3 Zone-IA store object data in one availability zone
+
+Storage classes for archiving objects
+-------------------------------------
+The S3 Glacier and S3 Glacier Deep Archive storage classes are for low-cost data archiving.
+
+- S3 Glacier, data can be retrived in 1-5 minutes.The minimum storage duration is 90 days.
+- S3 Glacier, if a data is deleted,overwritten or transitioned to a different storage class before 90-days,you will charged for 90-days
+- S3 Glacier Deep Archive,data can be retrived in 12-hours.The minimum storage duration is 180 days
