@@ -1,0 +1,46 @@
+Amazon VPC
+==========
+Amazon Virtual Private Cloude (Amazon VPC) enables us to launch the AWS resources in a virtual network which we have defined.This Virtual network closely resembles a on premises private network.
+
+Key Components of VPCs
+----------------------
+a. Virtual Private Cloud (VPC)
+b. Subnet
+c. Route tables
+d. Internet Gateway
+e. VPC endppoint
+f. VPC Pearing
+g. CIDR Blocks
+
+VPC's and Subnets
+-----------------
+A Virtual Private Cloud (VPC) is a virtual network dedicated to a AWS account.VPC is logically isolated from other virtual networks in the AWS Cloud.While creating a VPC we need to give IPv4 addreess(Private IP) in the form of CIDR (Classless Inter-Domain Routing) eg 10.0.0.0/16.
+
+- VPC are Region specific
+- In one Region we can have 5 VPCs
+- 200 Subnets in one VPC and 200 Route tables.
+- In one AWS account we can have 5 Elastic IP's
+- Once a VPC is created it automatically creates DHCP,NACL,Security-Group.
+- Same CIDR for two different VPC in one account is not allowed.
+- The allowed block size of CIDR while creating VPC is between /16 netmask (65536 IP addresses) and /28 netmask (16 IP addresses)
+- Once a VPC is created its CIDR cannot be changed.
+
+VPC CIDR blocks from IPv4 Private address range
+
+a. 10.0.0.0 - 10.255.255.255 (10/8 prefix),eg. VPC must be /16 or smaller (10.0.0.0/16)
+b. 172.16.0.0 - 172.31.255.255 (172.16/12 prefix),eg. VPC must be /16 or smaller (172.31.0.0/16)
+c. 192.168.0.0 - 192.168.255.255 (192.168/16 prefic),eg. VPC must be smaller (192.168.0.0/20)
+
+After creating the VPC we can create one or more subnets inside a Availability Zones.When we create a subnet we need to give a IPv4 CIDR which is the subset of VPC CIDR block.
+
+- Subnets are Avialability Zone (AZ) specific
+- Each subnet should reside in one AZ.
+- Subnets can not span AZ's
+- Each subnet can have one or more EC2 instances.
+- Public Subnets have access to Internet
+- Private Subnets don't have access to Internets.
+- In order to allow Private Subnet to have access to Internet, we need to create NAT in Public Subnet.
+	
+The CIDR block of Subnet can have the same CIDR block of VPC (in case of single subnet in the VPC).The allowed block size is /28 and /16 netmask.If we create more than one subnet in a VPC,the CIDR blocks of subnets cannot overlap.
+
+For example, if we create a VPC with CIDR block 10.0.0.0/24, it supports 256 IP addresses. We can break this CIDR block into two subnets, each supporting 128 IP addresses. One subnet uses CIDR block 10.0.0.0/25 (for addresses 10.0.0.0 - 10.0.0.127) and the other uses CIDR block 10.0.0.128/25 (for addresses 10.0.0.128 - 10.0.0.255).
