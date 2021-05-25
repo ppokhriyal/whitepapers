@@ -1,22 +1,66 @@
 Amazon S3
 =========
 Amazon Simple Storage Service (Amazon S3) is a storage for Internet.Amazon S3 gives a simple web-service interface for storing and retrieving any amount of data,at any time,from anywhere on the web.
+- S3 is a object based storage i.e the files are stored as a whole without dividing them into chunks.
 
 Key Concepts
 ------------
 a. Buckets
 
 A bucket is a container for storing the objects.For example if we have a object name example.png stored in a 'examplebucket' in 'us-east-1' region,then its accessable URL will be 'https://examplebucket.s3.us-east-1.amazonaws.com/example.png':
-- examplebucket, is the bucketname
-- s3, amazon s3 service name
-- us-east-1, region where it is created
-- amazonaws.com, amazon fqdn
-- example.png, object name
+-- examplebucket, is the bucketname
+-- s3, amazon s3 service name
+-- us-east-1, region where it is created
+-- amazonaws.com, amazon fqdn
+-- example.png, object name
 
-- S3 is a object based storage i.e the files are stored as a whole without dividing them into chunks.
 - Maximum capacity of a bucket is 5TB
 - Folders can be created inside buckets
 - Per AWS account we can have 100 buckets
+- The number of bucket creation can be increased by submitting a service limit increase
+
+An Amazon S3 bucket is globally unique across the AWS accoount.This means once the bucket is created,the name of the bucket cannot be used any other AWS account.Once the bucket is deleted its name would be available for new bucket creation.
+
+Bucket Naming Rules
+-------------------
+- name must be between 3-63 characters long
+- name must consists of lowercasee letter,numbers,dots(.) and hypens(-)
+- name must begin and end with letter or number
+- name in the form of IP address is not allowed
+
+Properties of Buckets
+---------------------
+- Bucket Versioning
+  - Versioning in Amazon S3 means keeping the multiple variants of the objects inside a bucket.
+  - Versioning is by default disabled when we create the bucket.
+  - Once the versioning is enabled,if Amazon S3 receives multiple write requests for the same object simultaneously,it stores all those objects.
+  - It helps to recover the ojects which are accidently removed or overwrite.
+  - If a object is deleted,Amazon S3 insert a delete marker instead of removing the object and the deleted marker becomes the current object version.
+  - Once the bucket is version-enabled it cannot be un-versioned.But we can suspend versioning on that bucket.
+  - In suspend versioning all the existing objects that are versioned will remain as it is,only the future requests for the objects will not be versioned.
+  - Objects that are stored before the versioning is enabled have version id 'null',all new objects after the versioning is enabled will have the unique version id.
+
+- Cost Allocation S3 tags
+  - In order to track the storage cost of buckets we can add the cost allocation tag.
+  - tag is in key-value pair form
+
+- Default server-side encryption
+  - Enabling default encryption provides automatic server-side encryption.
+  - Amazon S3 encrypts the objects before saving it to a disk and decrypts when we download the object
+  - Encryption can be either Amazon S3-managed keys (SSE-S3) or customer master key (CMKs) stored in AWS Key Management Service
+  - Using S3 Batch Operation,we can encrypt the existing objects with a single request.
+
+- Server Access Logging
+  - It provides details logs for all the requests that are made to an S3 bucket.
+  - By default it is not enabled
+  - While enabling the server access log, we need to give the source bucket name which logs will be stored in target bucket
+  - source and target buckets should be in same Region
+
+  Points to consider before enabling server access log
+  - We can grant permission to deliver access logs through bucket access control list not via bucket policy
+  - Deny condition to a bucket policy will prevent from delivering access logs
+  - Only Default encryption is allowed SSE-S3
+  - S3 Object-lock can not be enabled on target bucket
 
 b. Objects
 
