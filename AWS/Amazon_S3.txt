@@ -62,6 +62,32 @@ Properties of Buckets
   - Only Default encryption is allowed SSE-S3
   - S3 Object-lock can not be enabled on target bucket
 
+- Event Notifications
+  We can enable certain Amazon S3 Bucket events to send notification messages to a destination whenever the event occurs.
+
+- S3 Transfer Acceleration
+  Speed up the data transfer to and from S3 by 50-500% for long distance transfer of large objects.
+
+- S3 Object Lock
+  - With Object lock we can manage objects using a Write-Once-Read-Many (WORM) model.
+  - Object lock helps us to prevent objects being deleted or overwritten for a fixed period of time or for indefinet period of time.
+  - It works as a another layer of protection.
+  - It provides two ways of managing the object retention
+    - retention period , object is locked for a specific period of time.
+    - legal hold, it provides same protection as retention,but it has no expiration date.Legal hold need to remove explicitly.
+  - Object locks works only on versioned buckets
+  - When lock is applied on the version object,S3 stores the lock information in the metadata for that object only.
+  - If we put an object into a bucket that has the same key name as an existing protected object, Amazon S3 creates a new version of that object,
+    stores it in the bucket as requested, and reports the request as completed successfully.
+    The existing protected version of the object remains locked according to its retention configuration.
+
+- Requester Pays
+  - In general bucket owner pays for all the S3 storage and data transfer costs.
+    However we configure Buckets to be a Request Pay bucket,where the requester need to pay for the objects which he needs to download.
+  - Once the Requester Pays is enabled on the bucket,anonymous access to that bucket is not allowed.
+  - All the requester need to be authenticated.
+
+
 b. Objects
 
 Objects consists of object data and metadata.The object data are opaque to Amazon S3 and metadata is the set of name-value pair that describes the objects.The default metadata are, date last modified and content-type.
