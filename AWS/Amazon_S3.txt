@@ -19,7 +19,7 @@ A bucket is a container for storing the objects.For example if we have a object 
 - Per AWS account we can have 100 buckets
 - The number of bucket creation can be increased by submitting a service limit increase
 
-An Amazon S3 bucket is globally unique across the AWS accoount.This means once the bucket is created,the name of the bucket cannot be used any other AWS account.Once the bucket is deleted its name would be available for new bucket creation.
+An Amazon S3 bucket is globally unique across the AWS accoount.This means once the bucket is created,the name of the bucket cannot be used by any other AWS account.Once the bucket is deleted its name would be available for new bucket creation.
 
 Bucket Naming Rules
 -------------------
@@ -38,7 +38,8 @@ Properties of Buckets
   - If a object is deleted,Amazon S3 insert a delete marker instead of removing the object and the deleted marker becomes the current object version.
   - Once the bucket is version-enabled it cannot be un-versioned.But we can suspend versioning on that bucket.
   - In suspend versioning all the existing objects that are versioned will remain as it is,only the future requests for the objects will not be versioned.
-  - Objects that are stored before the versioning is enabled have version id 'null',all new objects after the versioning is enabled will have the unique version id.
+  - Objects that are stored before the versioning is enabled have version id 'null'.
+  - All new objects after the versioning is enabled will have the unique version id.
 
 - Cost Allocation S3 tags
   - In order to track the storage cost of buckets we can add the cost allocation tag.
