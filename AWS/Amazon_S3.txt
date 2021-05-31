@@ -88,6 +88,11 @@ Properties of Buckets
   - Once the Requester Pays is enabled on the bucket,anonymous access to that bucket is not allowed.
   - All the requester need to be authenticated.
 
+- Accessing Bucket
+  - A bucket can be accessed via path-style or virtual-hosted-style URL
+  - path-style : https://s3.us-east-1.amazonaws.com/mybucket/example.png
+  - virtual-hosted-style: https://mybucket.s3.us-east-1.amazonaws.com/example.png
+
 
 b. Objects
 
